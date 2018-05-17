@@ -2768,9 +2768,6 @@ class Cmd(cmd.Cmd):
             exit_code = ex.code
             should_exit = True
         finally:
-            if should_exit:
-                sys.exit(exit_code)
-
             if self.use_rawinput and self.completekey:
 
                 # Restore what we changed in readline
@@ -2790,6 +2787,9 @@ class Cmd(cmd.Cmd):
             # Need to set empty list this way because Python 2 doesn't support the clear() method on lists
             self.cmdqueue = []
             self._script_dir = []
+
+            if should_exit:
+                sys.exit(exit_code)
 
             return stop
 

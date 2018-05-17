@@ -2627,6 +2627,9 @@ class Cmd(cmd.Cmd):
         # Print out a message stating this is an unknown command
         self.poutput('*** Unknown syntax: {}\n'.format(arg))
 
+        if self.exit_with_error_code:
+            raise ExitWithError(code=2)
+
     @staticmethod
     def _surround_ansi_escapes(prompt, start="\x01", end="\x02"):
         """Overcome bug in GNU Readline in relation to calculation of prompt length in presence of ANSI escape codes.

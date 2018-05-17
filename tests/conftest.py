@@ -130,7 +130,10 @@ def normalize(block):
 def run_cmd(app, cmd):
     """ Clear StdOut buffer, run the command, extract the buffer contents, """
     app.stdout.clear()
-    app.onecmd_plus_hooks(cmd)
+    try:
+        app.onecmd_plus_hooks(cmd)
+    except SystemExit:
+        pass
     out = app.stdout.buffer
     app.stdout.clear()
     return normalize(out)
